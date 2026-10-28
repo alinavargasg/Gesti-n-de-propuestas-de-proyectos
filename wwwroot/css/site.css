@@ -1,0 +1,115 @@
+/* =========================================
+   SOBREESCRITURA DE COLORES (AZUL A VERDE)
+   ========================================= */
+
+:root {
+    /* Reemplazamos el azul de Bootstrap por un verde */
+    --bs-primary: #198754;
+    --bs-primary-rgb: 25, 135, 84;
+    /* Ajustamos los estados hover y active para que combinen */
+    --bs-primary-text-emphasis: #0a3622;
+    --bs-primary-bg-subtle: #d1e7dd;
+    --bs-primary-border-subtle: #a3cfbb;
+}
+
+/* 
+   Bootstrap 5 usa variables para los botones, pero para 
+   asegurar que se apliquen los cambios, forzamos las clases.
+*/
+
+/* Botones Primary */
+.btn-primary {
+    background-color: #198754 !important;
+    border-color: #198754 !important;
+    color: #fff !important;
+}
+
+    .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+        background-color: #146c43 !important; /* Un verde más oscuro al pasar el mouse */
+        border-color: #13653f !important;
+    }
+
+/* Fondo Primary (Navbar) */
+.bg-primary {
+    background-color: #198754 !important;
+}
+
+/* Texto Primary (Títulos) */
+.text-primary {
+    color: #198754 !important;
+}
+
+/* Bordes Primary */
+.border-primary {
+    border-color: #198754 !important;
+}
+
+/* Enlaces */
+a {
+    color: #198754;
+}
+
+    a:hover {
+        color: #146c43;
+    }
+
+/* Ajustes para el Navbar para que el texto resalte bien */
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+    .navbar-dark .navbar-nav .nav-link:hover {
+        color: #fff;
+    }
+
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+/* Efecto hover en las filas de las tablas */
+.table-hover tbody tr:hover {
+    background-color: #f1f8ff;
+    transition: background-color 0.2s ease-in-out;
+}
+
+/* Tarjetas con sombra suave */
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.card-header {
+    border-top-left-radius: 12px !important;
+    border-top-right-radius: 12px !important;
+    font-weight: 600;
+}
+
+/* Botones más redondeados */
+.btn {
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.btn-sm {
+    border-radius: 6px;
+}

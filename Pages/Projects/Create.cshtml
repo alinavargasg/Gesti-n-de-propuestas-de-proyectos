@@ -1,0 +1,142 @@
+﻿@page
+@model AuthenticationModule.Pages.Proyectos.CreateModel
+@{
+    ViewData["Title"] = "Nuevo Proyecto";
+}
+
+<h2>Registrar Nuevo Proyecto</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-8">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Selector de Tipo -->
+            <div class="mb-3 bg-light p-3 border rounded">
+                <label asp-for="Input.TipoProyecto" class="form-label fw-bold"></label>
+                <select asp-for="Input.TipoProyecto" class="form-select" id="tipoProyectoSelect">
+                    <option value="1">Proyecto Sociocomunitario</option>
+                    <option value="2">Proyecto de Emprendimiento</option>
+                </select>
+                <span asp-validation-for="Input.TipoProyecto" class="text-danger"></span>
+            </div>
+
+            <!-- Campos Comunes -->
+            <h5 class="mt-4">Datos Generales</h5>
+            <div class="mb-3">
+                <label asp-for="Input.Titulo" class="form-label"></label>
+                <input asp-for="Input.Titulo" class="form-control" />
+                <span asp-validation-for="Input.Titulo" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Input.Problematica" class="form-label"></label>
+                <textarea asp-for="Input.Problematica" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Input.Problematica" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Input.ObjetivoGeneral" class="form-label"></label>
+                <textarea asp-for="Input.ObjetivoGeneral" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Input.ObjetivoGeneral" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Input.DescripcionPrototipo" class="form-label"></label>
+                <textarea asp-for="Input.DescripcionPrototipo" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Input.DescripcionPrototipo" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Input.RecursosTecnologias" class="form-label"></label>
+                <textarea asp-for="Input.RecursosTecnologias" class="form-control" rows="2"></textarea>
+                <span asp-validation-for="Input.RecursosTecnologias" class="text-danger"></span>
+            </div>
+
+            <!-- Sección Dinámica: Sociocomunitario -->
+            <div id="seccionSocio" style="display: none;">
+                <h5 class="mt-4 text-info">Datos Sociocomunitarios</h5>
+                <div class="mb-3">
+                    <label asp-for="Input.Beneficiarios" class="form-label"></label>
+                    <input asp-for="Input.Beneficiarios" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Input.UbicacionGeografica" class="form-label"></label>
+                    <input asp-for="Input.UbicacionGeografica" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Input.ActoresInvolucrados" class="form-label"></label>
+                    <textarea asp-for="Input.ActoresInvolucrados" class="form-control" rows="2"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Input.ImpactoSocialEsperado" class="form-label"></label>
+                    <textarea asp-for="Input.ImpactoSocialEsperado" class="form-control" rows="2"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Input.EstrategiasSostenibilidad" class="form-label"></label>
+                    <textarea asp-for="Input.EstrategiasSostenibilidad" class="form-control" rows="2"></textarea>
+                </div>
+            </div>
+
+            <!-- Sección Dinámica: Emprendimiento -->
+            <div id="seccionEmprende" style="display: none;">
+                <h5 class="mt-4 text-warning">Datos de Emprendimiento</h5>
+                <div class="mb-3">
+                    <label asp-for="Input.SegmentoMercado" class="form-label"></label>
+                    <input asp-for="Input.SegmentoMercado" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Input.PropuestaValor" class="form-label"></label>
+                    <textarea asp-for="Input.PropuestaValor" class="form-control" rows="2"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Input.AnalisisCompetencia" class="form-label"></label>
+                    <textarea asp-for="Input.AnalisisCompetencia" class="form-control" rows="2"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Input.ModeloIngresos" class="form-label"></label>
+                    <input asp-for="Input.ModeloIngresos" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Input.EstimacionInversionInicial" class="form-label"></label>
+                    <input asp-for="Input.EstimacionInversionInicial" class="form-control" type="number" step="0.01" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Input.ViabilidadEconomica" class="form-label"></label>
+                    <textarea asp-for="Input.ViabilidadEconomica" class="form-control" rows="2"></textarea>
+                </div>
+                
+                <div class="mb-3">
+                    <label asp-for="Input.EstrategiaComercializacion" class="form-label"></label>
+                    <textarea asp-for="Input.EstrategiaComercializacion" class="form-control" rows="2"></textarea>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <button type="submit" class="btn btn-primary">Guardar Proyecto</button>
+                <a asp-page="./Index" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const selectTipo = document.getElementById("tipoProyectoSelect");
+            const seccionSocio = document.getElementById("seccionSocio");
+            const seccionEmprende = document.getElementById("seccionEmprende");
+
+            function toggleSecciones() {
+                if (selectTipo.value === "1") {
+                    seccionSocio.style.display = "block";
+                    seccionEmprende.style.display = "none";
+                } else {
+                    seccionSocio.style.display = "none";
+                    seccionEmprende.style.display = "block";
+                }
+            }
+
+            selectTipo.addEventListener("change", toggleSecciones);
+            toggleSecciones(); // Ejecutar al cargar
+        });
+    </script>
+}

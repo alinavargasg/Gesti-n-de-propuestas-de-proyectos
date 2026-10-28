@@ -1,0 +1,57 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Inicio";
+}
+
+<div class="container mt-5">
+    <div class="row align-items-center">
+
+        <!-- Columna de Texto -->
+        <div class="col-lg-6 mb-4 mb-lg-0">
+            <h1 class="display-4 fw-bold text-primary mb-3">
+                Bienvenidos a <br />
+                <span class="text-dark">Gestión de Propuestas de Proyectos</span>
+            </h1>
+            <p class="lead text-muted mb-4">
+                Esta plataforma está diseñada para centralizar, gestionar y evaluar las propuestas de proyectos
+                académicos presentadas por los estudiantes. Aquí podrás administrar proyectos sociocomunitarios
+                y de emprendimiento, asignar equipos de trabajo y realizar el seguimiento de las evaluaciones
+                por parte de los docentes.
+            </p>
+
+            @if (!User.Identity?.IsAuthenticated == true)
+            {
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start mt-4">
+                    <a asp-page="/Auth/Account/Login" class="btn btn-primary btn-lg px-4 me-md-2 rounded-pill shadow-sm">
+                        <i class="bi bi-box-arrow-in-right me-2"></i> Iniciar Sesión
+                    </a>
+                    <a asp-page="/Auth/Account/Register" class="btn btn-outline-secondary btn-lg px-4 rounded-pill">
+                        Registrarse
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start mt-4">
+                    <a asp-page="/Projects/Index" class="btn btn-success btn-lg px-4 me-md-2 rounded-pill shadow-sm">
+                        <i class="bi bi-folder2-open me-2"></i> Ver mis Proyectos
+                    </a>
+                </div>
+            }
+        </div>
+
+        <!-- Columna de la Imagen -->
+        <div class="col-lg-6 text-center">
+            <!--
+                Puedes reemplazar esta URL por una imagen local, por ejemplo: src="~/images/proyectos.jpg"
+                Asegúrate de que la imagen sea de buena calidad y tenga relación con la educación o gestión.
+            -->
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                 alt="Estudiantes trabajando en equipo"
+                 class="img-fluid rounded-4 shadow-lg border border-3 border-white"
+                 style="max-height: 400px; object-fit: cover;" />
+        </div>
+
+    </div>
+</div>

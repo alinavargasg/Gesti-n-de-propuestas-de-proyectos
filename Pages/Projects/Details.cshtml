@@ -1,0 +1,116 @@
+﻿@page
+@model AuthenticationModule.Pages.Proyectos.DetailsModel
+@{
+    ViewData["Title"] = "Detalles del Proyecto";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="fw-bold text-primary"><i class="bi bi-info-circle me-2"></i>Detalles del Proyecto</h2>
+    <a asp-page="./Index" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> Volver
+    </a>
+</div>
+
+<div class="row">
+    <!-- Columna Izquierda: Info del Proyecto -->
+    <div class="col-lg-8">
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">@Model.Proyecto.Titulo</h5>
+                <span class="badge bg-light text-primary fs-6">@Model.Proyecto.TipoProyecto</span>
+            </div>
+            <div class="card-body">
+                <h6 class="text-muted fw-bold">Problemática</h6>
+                <p class="mb-4">@Model.Proyecto.Problematica</p>
+
+                <h6 class="text-muted fw-bold">Objetivo General</h6>
+                <p>@Model.Proyecto.ObjetivoGeneral</p>
+            </div>
+        </div>
+
+        <!-- Datos Específicos -->
+        <div class="card mb-4">
+            <div class="card-header bg-light fw-bold">
+                Información Específica
+            </div>
+            <div class="card-body">
+                @if (Model.Proyecto.TipoProyecto == "Sociocomunitario")
+                {
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Beneficiarios:</strong> @Model.Proyecto.Beneficiarios</li>
+                        <li class="list-group-item"><strong>Ubicación:</strong> @Model.Proyecto.UbicacionGeografica</li>
+                        <li class="list-group-item"><strong>Impacto Esperado:</strong> @Model.Proyecto.ImpactoSocialEsperado</li>
+                    </ul>
+                }
+                else
+                {
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Segmento Mercado:</strong> @Model.Proyecto.SegmentoMercado</li>
+                        <li class="list-group-item"><strong>Propuesta Valor:</strong> @Model.Proyecto.PropuestaValor</li>
+                        <li class="list-group-item"><strong>Inversión Estimada:</strong> <span class="text-success">Bs. @Model.Proyecto.EstimacionInversionInicial</span></li>
+                    </ul>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Columna Derecha: Estudiantes y Evaluaciones -->
+    <div class="col-lg-4">
+        <!-- Estudiantes -->
+        <div class="card mb-4">
+            <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-people-fill me-2"></i>Estudiantes</span>
+                <a asp-page="./AsignarEstudiantes" asp-route-id="@Model.Proyecto.Id" class="btn btn-sm btn-light" title="Gestionar">
+                    <i class="bi bi-gear"></i>
+                </a>
+            </div>
+            <ul class="list-group list-group-flush">
+                @if (Model.Proyecto.Estudiantes.Any())
+                {
+                    @foreach (var est in Model.Proyecto.Estudiantes)
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-0">@est.NombreCompleto</h6>
+                                <small class="text-muted">@est.Curso</small>
+                            </div>
+                            <i class="bi bi-person-check text-success"></i>
+                        </li>
+                    }
+                }
+                else
+                {
+                    <li class="list-group-item text-center text-muted py-4">Sin estudiantes asignados.</li>
+                }
+            </ul>
+        </div>
+
+        <!-- Evaluaciones -->
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <i class="bi bi-clipboard-check-fill me-2"></i>Evaluaciones
+            </div>
+            <div class="card-body p-0">
+                @if (Model.Proyecto.Evaluaciones.Any())
+                {
+                    <ul class="list-group list-group-flush">
+                        @foreach (var ev in Model.Proyecto.Evaluaciones)
+                        {
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between">
+                                    <strong>@ev.DocenteNombre</strong>
+                                    <span class="badge bg-success rounded-pill">@ev.Nota pts</span>
+                                </div>
+                                <p class="text-muted small mt-1 mb-0">@ev.Observaciones</p>
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <div class="text-center text-muted py-4">No hay evaluaciones registradas.</div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

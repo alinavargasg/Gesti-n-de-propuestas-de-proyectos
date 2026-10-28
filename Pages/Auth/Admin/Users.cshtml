@@ -1,0 +1,99 @@
+﻿@page
+@model AuthenticationModule.Pages.Admin.UsersModel
+@{
+    ViewData["Title"] = "Gestión de Usuarios";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Gestión de Usuarios</h2>
+</div>
+
+<!-- Mensajes de éxito o error -->
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show">
+        @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show">
+        @TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Usuario</th>
+                    <th>Email</th>
+                    <th>Rol</th>
+                    <th>Docente Vinculado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model.Usuarios)
+                {
+                    <tr>
+                        <td>@user.Id</td>
+                        <td><strong>@user.Username</strong></td>
+                        <td>@user.Email</td>
+                        <td>
+                            @if (user.Role.Name == "Admin")
+                            {
+                                <span class="badge bg-danger">@user.Role.Name</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">@user.Role.Name</span>
+                            }
+                        </td>
+                        <td>
+                            @if (user.DocenteId != null && user.Docente != null)
+                            {
+                                <span class="text-success">
+                                    ✔ @user.Docente.Nombre @user.Docente.ApellidoPaterno
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="text-muted">Sin vincular</span>
+                            }
+                        </td>
+                        <td>
+                            <!-- Si no es Admin y no tiene docente, mostramos el formulario de vinculación -->
+                            @if (user.Role.Name != "Admin" && user.DocenteId == null)
+                            {
+                                <form method="post" asp-page-handler="Vincular" class="d-flex align-items-center">
+                                    <input type="hidden" name="userId" value="@user.Id" />
+
+                                    <select name="docenteId" class="form-select form-select-sm me-2" style="width: 200px;" required>
+                                        <option value="">Seleccione Docente...</option>
+                                        @foreach (var docente in Model.DocentesDisponibles)
+                                        {
+                                            <option value="@docente.Value">@docente.Text</option>
+                                        }
+                                    </select>
+
+                                    <button type="submit" class="btn btn-sm btn-primary">
+                                        Vincular
+                                    </button>
+                                </form>
+                            }
+                            else if (user.Role.Name != "Admin" && user.DocenteId != null)
+                            {
+                                <span class="text-muted small">Ya vinculado</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
